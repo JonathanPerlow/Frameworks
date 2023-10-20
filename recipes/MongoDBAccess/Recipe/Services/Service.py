@@ -1,6 +1,8 @@
 from bson import ObjectId
+
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
+
 from ..AccessObject.Interface import DAOInterface
 from .Interface import ServiceInterface
 
@@ -13,7 +15,7 @@ class Service(ServiceInterface):
         try:
             _id = ObjectId()
             recipe_document: dict = RecipeModel(
-              id=_id, name=name, ingredients=ingredients
+                id=_id, name=name, ingredients=ingredients
             ).model_dump()
             await self.recipe_dao.save_recipe(recipe_document)
             return recipe_document
@@ -38,7 +40,6 @@ class Service(ServiceInterface):
             raise db_error
 
     async def get_all_recipes(self) -> list:
-
         try:
             recipes = []
             recipe_documents = await self.recipe_dao.get_all_recipe()
@@ -46,7 +47,9 @@ class Service(ServiceInterface):
                 for recipe_document in recipe_documents:
                     _id = str(recipe_document.get("_id"))
                     recipe_data = {
-                        key: value for key, value in recipe_document.items() if key != "_id"
+                        key: value
+                        for key, value in recipe_document.items()
+                        if key != "_id"
                     }
                     recipe_model = RecipeModel(id=_id, **recipe_data)
                     recipes_json = recipe_model.model_dump()

@@ -1,15 +1,19 @@
 from sanic import Sanic
 from sanic.response import json
-
-from recipes.MongoDBAccess.Recipe.Services.Interface import ServiceInterface
-from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
-from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 from sanic_openapi import openapi
+
+from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
+from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
+from recipes.MongoDBAccess.Recipe.Services.Interface import ServiceInterface
 
 
 def configure_routes(_app: Sanic, db_service: ServiceInterface):
     @_app.post("/create_recipe/<name:str>/<ingredients:str>", name="create_recipe")
-    @openapi.response(201, {"application/json": RecipeModel}, description="Recipe created successfully.")
+    @openapi.response(
+        201,
+        {"application/json": RecipeModel},
+        description="Recipe created successfully.",
+    )
     @openapi.body(RecipeModel, description="Recipe data")
     async def create_recipe(request):
         try:
@@ -25,7 +29,11 @@ def configure_routes(_app: Sanic, db_service: ServiceInterface):
             return json({"error": "Internal Server Error"}, status=500)
 
     @_app.get("/get_recipe_by_id/<_id:str>", name="get_recipe_by_id")
-    @openapi.response(201, {"application/json": RecipeModel}, description="Fetching a recipe was successfully")
+    @openapi.response(
+        201,
+        {"application/json": RecipeModel},
+        description="Fetching a recipe was successfully",
+    )
     @openapi.body(RecipeModel, description="recipe data")
     async def get_one(request, _id: str):
         try:
@@ -40,7 +48,11 @@ def configure_routes(_app: Sanic, db_service: ServiceInterface):
             return json({"error": "Internal Server Error"}, status=500)
 
     @_app.get("/get_recipes", name="get_recipes")
-    @openapi.response(201, {"application/json": RecipeModel}, description="Fetching the recipes went good")
+    @openapi.response(
+        201,
+        {"application/json": RecipeModel},
+        description="Fetching the recipes went good",
+    )
     @openapi.body(RecipeModel, description="recipe data")
     async def get_all(request):
         try:

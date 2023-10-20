@@ -1,18 +1,25 @@
 from fastapi import FastAPI, HTTPException
 
-from recipes.MongoDBAccess.Recipe.Services.Interface import ServiceInterface
-from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
+from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
+from recipes.MongoDBAccess.Recipe.Services.Interface import ServiceInterface
 
 
 def configure_routes(_app: FastAPI, db_service: ServiceInterface):
-    @_app.post("/create_recipe/{name}/{ingredients}", response_model=RecipeModel, status_code=201)
+    @_app.post(
+        "/create_recipe/{name}/{ingredients}",
+        response_model=RecipeModel,
+        status_code=201,
+    )
     async def create_recipe(name: str, ingredients: str):
         try:
             recipe = await db_service.create_recipe(name, ingredients)
             if recipe:
                 return recipe
-            raise HTTPException(status_code=404, detail=f"The recipe with name {name} could not be created")
+            raise HTTPException(
+                status_code=404,
+                detail=f"The recipe with name {name} could not be created",
+            )
         except DatabaseError as e:
             # Log it, will figure it out later
             print(f"Database error: {e}")
@@ -24,7 +31,10 @@ def configure_routes(_app: FastAPI, db_service: ServiceInterface):
             recipe = await db_service.get_one_recipe(recipe_id)
             if recipe:
                 return recipe
-            raise HTTPException(status_code=404, detail=f"The recipe with ID: {recipe_id} could not be found")
+            raise HTTPException(
+                status_code=404,
+                detail=f"The recipe with ID: {recipe_id} could not be found",
+            )
         except DatabaseError as e:
             # Log it, will figure it out later
             print(f"Database error: {e}")

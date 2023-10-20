@@ -1,14 +1,18 @@
 from motor.motor_asyncio import AsyncIOMotorClient
 from pymongo.errors import PyMongoError
-from ..Models.Recipe import RecipeModel
-#from Interface import DAOInterface
-from .Interface import DAOInterface
+
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
+
+from ..Models.Recipe import RecipeModel
+
+# from Interface import DAOInterface
+from .Interface import DAOInterface
 
 
 class DAO(DAOInterface):
-
-    def __init__(self, client: AsyncIOMotorClient, database_name: str, collection_name: str):
+    def __init__(
+        self, client: AsyncIOMotorClient, database_name: str, collection_name: str
+    ):
         self.client = client
         self.db = self.client[database_name]
         self.collection = self.db[collection_name]
@@ -35,7 +39,9 @@ class DAO(DAOInterface):
             raise DatabaseError(f"An error occurred when fetching the recipe: {e}")
 
     # Update recipe method
-    async def update_one_recipe(self, recipe_document: dict, update: RecipeModel) -> int:
+    async def update_one_recipe(
+        self, recipe_document: dict, update: RecipeModel
+    ) -> int:
         try:
             recipe = await self.collection.update_one(recipe_document, {"$set": update})
             return recipe.modified_count

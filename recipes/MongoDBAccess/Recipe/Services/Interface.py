@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class ServiceInterface(ABC):
-
     @abstractmethod
     async def create_recipe(self, name, ingredients) -> str:
         pass

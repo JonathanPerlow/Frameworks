@@ -4,7 +4,6 @@ from ..Models.Recipe import RecipeModel
 
 
 class DAOInterface(ABC):
-
     @abstractmethod
     async def save_recipe(self, recipe: dict) -> object:
         pass
@@ -18,7 +17,9 @@ class DAOInterface(ABC):
         pass
 
     @abstractmethod
-    async def update_one_recipe(self, recipe_document: dict, update: RecipeModel) -> int:
+    async def update_one_recipe(
+        self, recipe_document: dict, update: RecipeModel
+    ) -> int:
         pass
 
     @abstractmethod

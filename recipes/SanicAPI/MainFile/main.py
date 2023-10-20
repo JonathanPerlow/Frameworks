@@ -1,10 +1,11 @@
 from sanic import Sanic
 from sanic.request import Request
 from sanic.response import HTTPResponse, text
-from sanic_openapi import openapi2_blueprint
-from recipes.SanicAPI.Routes.recipe_routes import configure_routes
-from recipes.MongoDBAccess.setup import recipe_service_db
 from sanic_cors import CORS
+from sanic_openapi import openapi2_blueprint
+
+from recipes.MongoDBAccess import recipe_service_db
+from recipes.SanicAPI.Routes.recipe_routes import configure_routes
 
 app = Sanic("recipe_app")
 
@@ -21,7 +22,7 @@ async def error_middleware(request: Request, response: HTTPResponse):
         return text(f"Internal Server Error: {str(e)}", status=500)
 
 
-app.register_middleware(error_middleware, attach_to='response')
+app.register_middleware(error_middleware, attach_to="response")
 configure_routes(app, recipe_service_db)
 
 if __name__ == "__main__":
