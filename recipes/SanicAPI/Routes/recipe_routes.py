@@ -1,9 +1,9 @@
 from sanic import Sanic
 from sanic.response import json
 
-from MongoDBAccess.Recipe.Services.Interface import ServiceInterface
-from MongoDBAccess.Recipe.Models.Recipe import RecipeModel
-from MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
+from recipes.MongoDBAccess.Recipe.Services.Interface import ServiceInterface
+from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
+from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 from sanic_openapi import openapi
 
 

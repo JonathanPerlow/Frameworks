@@ -2,8 +2,8 @@ from fastapi import FastAPI, Request, HTTPException
 import uvicorn
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-from FastApiProject.Routes.recipe_routes import configure_routes
-from MongoDBAccess.setup import recipe_service_db
+from recipes.FastApiProject.Routes.recipe_routes import configure_routes
+from recipes.MongoDBAccess.setup import recipe_service_db
 
 app = FastAPI(title="recipe_app")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"],

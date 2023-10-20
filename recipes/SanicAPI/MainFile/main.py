@@ -2,8 +2,8 @@ from sanic import Sanic
 from sanic.request import Request
 from sanic.response import HTTPResponse, text
 from sanic_openapi import openapi2_blueprint
-from SanicAPI.Routes.recipe_routes import configure_routes
-from MongoDBAccess.setup import recipe_service_db
+from recipes.SanicAPI.Routes.recipe_routes import configure_routes
+from recipes.MongoDBAccess.setup import recipe_service_db
 from sanic_cors import CORS
 
 app = Sanic("recipe_app")
