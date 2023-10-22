@@ -23,7 +23,7 @@ db_service: ServiceInterface = Service(recipe_db)
 
 
 @app.route("/create_recipe/<string:name>/<string:ingredients>", methods=["POST"])
-def create_recipe(name: str, ingredients: str):
+def create_recipe():
     """
     Create a new recipe.
     ---

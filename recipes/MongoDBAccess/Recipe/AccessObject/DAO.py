@@ -4,7 +4,6 @@ from pymongo.errors import PyMongoError
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 
 from ..Models.Recipe import RecipeModel
-
 # from Interface import DAOInterface
 from .Interface import DAOInterface
 
