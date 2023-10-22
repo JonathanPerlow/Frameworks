@@ -3,10 +3,11 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from motor.motor_asyncio import AsyncIOMotorClient
+
+from recipes.FastApiProject import config
+from recipes.MongoDBAccess import DAO, DAOInterface, Service, ServiceInterface
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
-from recipes.MongoDBAccess import DAOInterface, DAO, ServiceInterface, Service
-from recipes.FastApiProject import config
 
 async_client = AsyncIOMotorClient(config.CONNECTION_STRING)
 recipe_db: DAOInterface = DAO(async_client, config.DB_NAME, config.COLLECTION_NAME)

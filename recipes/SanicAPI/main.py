@@ -8,7 +8,6 @@ from sanic_openapi import openapi, openapi2_blueprint
 from recipes.MongoDBAccess import DAO, DAOInterface, Service, ServiceInterface
 from recipes.MongoDBAccess.Recipe.CustomErrorClass import DatabaseError
 from recipes.MongoDBAccess.Recipe.Models.Recipe import RecipeModel
-
 from recipes.SanicAPI import config
 
 async_client = AsyncIOMotorClient(config.CONNECTION_STRING)
